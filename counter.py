@@ -9,7 +9,11 @@ check_in_sums = [[0 for i in range(4)] for j in range(24)]
 def get_segment(minute):
     return int(minute / 15)
 
+# count = 0
 for line in entry_file:
+    # if count < 4:
+    #     count++
+    #     continue
     cols = line.split(",")
     if cols[3].split(" ")[0] == DATE:
         entry_lines_to_keep.append(cols)
@@ -25,34 +29,35 @@ for line in entry_lines_to_keep:
 
 # for curr_hour in range(0,24):
 #     for curr_quarter in range(0, 4):
-# #        for segments in entry_lines_to_keep:
+#  #        for segments in entry_lines_to_keep:
 #
-    pnrs = {}
-    for line in entry_lines_to_keep:
+#         pnrs = {}
+#         for line in entry_lines_to_keep:
 #             time_segments = line[1].split(" ")[1].split(":")
-#             #nationality = ''.join(time_segments[2][2:6].split())
+#             # nationality = ''.join(time_segments[2][2:6].split())
 #             quarter = int(int(time_segments[1])/15)
-#             #exit_sums[int(time_segments[0])][quarter] += 1
+#             # exit_sums[int(time_segments[0])][quarter] += 1
 #
 #             if int(time_segments[0]) == curr_hour and quarter == curr_quarter:
-        pnr = line[10]
-        if pnrs.get(pnr) != None:
-            pnrs[pnr] = pnrs[pnr] + 1
-        else:
-            pnrs[pnr] = 1
-
-    #for pnr, count in pnrs.items():
-    #    if count != 1:
-    #        print(str(pnr) + "," + str(count))
-
-    group_numbers = [0] * 100000 #number of groups of each size
-    for pnr, count in pnrs.items():
-        group_numbers[count] += 1
-
-    for index, count in enumerate(group_numbers):
-        if count != 0:
-            #print(str(curr_hour) + ":" + str(curr_quarter * 15) + ", index:" + str(index) + ":" + str(count))
-            print(", index:" + str(index) + ":" + str(count))
+#                 pnr = line[10]
+#                 if pnrs.get(pnr) != None:
+#                     pnrs[pnr] = pnrs[pnr] + 1
+#                 else:
+#                     pnrs[pnr] = 1
+#
+#     #for pnr, count in pnrs.items():
+#     #    if count != 1:
+#     #        print(str(pnr) + "," + str(count))
+#
+#         group_numbers = [0] * 100000 #number of groups of each size
+#         for pnr, count in pnrs.items():
+#             group_numbers[count] += 1
+#
+#         for index, count in enumerate(group_numbers):
+#             if count != 0:
+#                 #print(str(curr_hour) + ":" + str(curr_quarter * 15) + ", index:" + str(index) + ":" + str(count))
+#                 print(", index:" + str(index) + ":" + str(count))
+#         print("------------------------------------")
 ###################
 
 exit_file = open("2018 Hacktrain - Jul-Oct18 Exit Check Data_2018.11.07.csv")
@@ -79,6 +84,16 @@ for i in range(0,24):
     for j in range(0,4):
         difference[i][j] = check_in_sums[i][j] - exit_sums[i][j]
 
-for sum in difference:
-    print(str(sum[0]) + "," + str(sum[1]) + "," + str(sum[2]) + "," + str(sum[3]))
 
+#add extra stuff
+from nationality import getNationalities
+nationalities = getNationalities()
+
+
+total = 0
+for hour, sum in enumerate(difference):
+    for i in range(0,4):
+        total = total + (difference[hour][i])
+        print(str(hour) + ":" + str(i * 15) + "," + str(difference[hour][i]) + "," + nationalities[(hour * 4) + i])
+
+print(total)
