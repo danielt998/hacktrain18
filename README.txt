@@ -12,7 +12,7 @@ The code will have the following structure
                                     .
                                  out.csv
 
-where
+where:
   groups.py will collect data about different groups of people and sizes
   checkinout.py will collect information about the numbers of people checking in and out
   nationality.py will collect information about the nationality of different passengers
