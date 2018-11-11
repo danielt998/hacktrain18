@@ -5,7 +5,7 @@ The code will have the following structure
                                     |
                                    \ /
                                     .
- chckinout.py ----------------->  main.py <---------------- nationality.py
+ chckinout.py ================>  main.py <=============== nationality.py
  
                                     |
                                     |
